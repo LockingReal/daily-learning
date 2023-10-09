@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易的标签嵌套式的modal</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding: 0;
+    }
+    .wrapper {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        pointer-events: none;
+        background-color: rgb(255, 255, 255);
+        transition: background-color 1s cubic-bezier(0.075, 0.82, 0.165, 1)
+    }
+
+    .wrapper::before {
+        content: "";
+        inset: 0;
+        position: absolute;
+    }
+
+    .wrapper .content {
+        position: relative;
+        background-color: aqua;
+        width: 300px;
+        height: 300px;
+    }
+
+    .hide{
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="wrapper hide" id="wrapperEl">
+        <div class="content" id="contentEl">展开</div>
+    </div>
+    <button id="showModal">展示modal</button>
+    <script>
+        const wrapperEl = document.getElementById('wrapperEl');
+        const contentEl = document.getElementById('contentEl');
+        const modalEl = document.getElementById('showModal');
+        wrapperEl.addEventListener('click', function () {
+            wrapperEl.classList.add('hide');
+        });
+        contentEl.addEventListener('click', function (e) {
+            console.log('real content click');
+            e.stopPropagation();
+        }, { capture: true });
+        modalEl.addEventListener('click',function(){
+            wrapperEl.classList.remove('hide');
+            setTimeout(()=>{
+                wrapperEl.style.backgroundColor = 'black';
+            },100);
+        });
+    </script>
+</body>
+
+</html>
