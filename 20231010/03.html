@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 音量
+        const volume = 0.2;
+        // 定义一个AudioContext对象
+        // 因为Web Audio API 都是源自此对象
+        const audioContext = new AudioContext();
+        // 降低音量后的audioBuffer数据
+        let newAudioBuffer = null;
+        // 获取音频资源
+        fetch('./bgmusic.mp3').then(res => res.arrayBuffer()).then(buffer => audioContext.decodeAudioData(buffer))
+            .then(audioBuffer => {
+                newAudioBuffer = new AudioBuffer({
+                    length: audioBuffer.length,
+                    numberOfChannels: audioBuffer.numberOfChannels,
+                    sampleRate: audioBuffer.sampleRate
+                });
+                for (let channel = 0; channel < audioBuffer.numberOfChannels; channel += 1) {
+                    const channelData = audioBuffer.getChannelData();
+                    const copiedChannelData = newAudioBuffer.getChannelData(channel);
+                    for(let sample = 0;sample<channelData.length;sample+=1){
+                        copiedChannelData[sample] = channelData[sample] * volume;
+                    }
+                }
+            });
+
+    </script>
+</body>
+
+</html>
