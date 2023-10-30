@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = function demo(num){
+            demo = num;
+            // 打印的function,这种情况下 demo是只读的
+            console.log(typeof demo);
+        }
+        a(1);
+    </script>
+</body>
+</html>

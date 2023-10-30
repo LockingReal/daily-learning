@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function timeLimit(fn, t) {
+            return async function (...args) {
+                return new Promise((resolve, reject) => {
+                    fn(...args).then(resolve, reject)
+                    setTimeout(() => reject("Time Limit Exceeded"), t)
+                })
+            }
+        };
+        // 定义一个函数
+        function myFunction() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Function executed successfully!");
+                }, 2000);
+            });
+        }
+
+        // 将函数包装在 timeLimit 中，限制执行时间为 1000 毫秒
+        const limitedFunction = timeLimit(myFunction, 3000);
+
+        // 调用限制后的函数
+        limitedFunction().then((result) => {
+            console.log(result); // 输出: Function executed successfully!
+        }).catch((error) => {
+            console.log(error); // 输出: Time Limit Exceeded
+        });
+    </script>
+</body>
+
+</html>

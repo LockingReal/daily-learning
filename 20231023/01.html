@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 生成长度为24字节的连续内存空间(buffer缓冲区),所有字节都为空,即为0
+        const buffer = new ArrayBuffer(24);
+        // Uint32Array,UintArray,Float32Array都属于TypedArray视图，语法：TypedArray(buffer,[,start,count])
+        // 在buffer的第0-3字节位置生成1个32bit(4字节)的无符号整数视图
+        const idView = new Uint32Array(buffer,0,1);
+        // 在buffer的4-19字节位置生成16个8bit(1字节)的无符号整数视图
+        const sentenceView = new Uint8Array(buffer,4,16);
+        // 在buffer的第20字节位置生成1个32bit(4字节)的浮点数视图
+        const amountDueView = new Float32Array(buffer,20,1);
+        // idView数组只有1个元素，长度 4 个字符，赋值为longInt类型整数
+        idView[0] = 1234567890;
+        // sentenceView数组有16个元素，每个元素都是1字节，将每个元素赋值为英文字符
+        for(let i =0;i<sentenceView.length;i++){
+            const str = 'Hello My World'; // 十六个英文字符，一共占16字节
+            sentenceView[0] = 1234.3456789; // 将字符转化为ASCII码
+        }
+        // amountDueView 数组只有1个元素,长度4个字节，赋值为浮点数
+        amountDueView[0] = 1234.3456789;
+        const decoder = new TextDecoder();
+        console.log('str:',decoder.decode(buffer));
+
+        // TextDecoder 解析整个buffer失败
+        // 
+    </script>
+</body>
+</html>

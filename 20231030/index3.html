@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        this.a = 20;
+        let test = {
+            a:40,
+            init:function(){
+                function go(){
+                    console.log(this.a);
+                }
+                // 值得注意的是，go.prototype.a = 100; 这行代码对于输出结果没有影响，因为go()函数作为普通函数调用时，并不会访问或使用其原型对象。
+                go.prototype.a = 100;
+                // this谁调用指向谁
+                // 没有人掉用go方法，不是xx.go，则方法内的this指向window
+                go();
+            }
+        }
+        test.init();
+    </script>
+</body>
+</html>

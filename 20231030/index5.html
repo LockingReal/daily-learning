@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var s = {
+            a:function(){
+                console.log(1);
+            },
+            b(){
+                console.log(2);
+            }
+        };
+        var f = s.a.bind(this);
+        new f(); // 这里new f()；指向方法a,和s本身无关了
+        var p = s.b.bind(this);
+        new p(); // es6这种的简化形式不支持new
+
+        // 依次打印：
+        // 1
+        //Uncaught TypeError: p is not a constructor
+    </script>
+</body>
+</html>

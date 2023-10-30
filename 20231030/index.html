@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function a(){
+            alert(10);
+        }
+        // 当先声明一个函数a,又var一个a但是没有赋值，函数生效
+        // 如果在var a的下一行有，a = 3
+        var a;
+        // Uncaught SyntaxError: Identifier 'a' has already been declared (at 行数
+        //let a;
+        console.log(a)
+    </script>
+</body>
+</html>
